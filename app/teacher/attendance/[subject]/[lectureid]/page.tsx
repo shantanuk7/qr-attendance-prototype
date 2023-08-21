@@ -1,7 +1,7 @@
 'use client'
 
 import axios from "axios";
-import Link from "next/link";
+
 import { useState, useEffect } from "react";
 
 interface Attendance {
@@ -13,7 +13,7 @@ interface Attendance {
 
 export default function AttendanceSheet({params}:any) {
   // const [data, setData] = useState<Attendance>();
-  const [data, setData] = useState();
+  const [data, setData] = useState<Attendance | null>(null);;
   
   useEffect(() => {
     
