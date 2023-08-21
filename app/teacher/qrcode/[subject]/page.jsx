@@ -23,7 +23,7 @@ export default async function QR({ params }) {
   // Add lecture in database
   const data = { subject: paramSubject, qrcode: randomstring };
   try {
-    const res = await axios.post("http://127.0.0.1:3000/api/newlecture", data);
+    const res = await axios.post(process.env.URL+"/api/newlecture", data);
     if (res) 
       console.log("Response got in subject qr code generation page: ", res);
     
