@@ -1,7 +1,7 @@
 "use client"
 import { useContext, createContext, useState, useEffect } from "react";
 import {
-  signInWithPopup,
+  signInWithRedirect,
   signOut,
   onAuthStateChanged,
   GoogleAuthProvider,
@@ -16,7 +16,7 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      await signInWithRedirect(auth, provider);
       // Return a resolved promise on successful authentication
       return Promise.resolve();
     } catch (error) {
