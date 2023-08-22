@@ -5,28 +5,33 @@ import { NextRequest, NextResponse } from "next/server";
 
 connect();
 
-export async function POST(request: NextRequest){
-    try {
-        const req = await request.json();
-        // const {date, qrcode, subject} = req;
+export async function POST(request: NextRequest) {
+  try {
+    const requestData = await request.json();
+    const { subject, qrcode } = requestData;
 
-        console.log("request: ", req);
+    // Create a new Date instance for the lecture's date
+    const date = new Date();
 
-        const date = new Date();
-        const {subject, qrcode} = req;
-        const attendees = [''];
+    const attendees: string[] = [];
 
-        const newLecture = new Lecture ({
-            date,
-            qrcode,
-            subject,
-            attendees
-        })
+    const newLecture = new Lecture({
+      date,
+      qrcode,
+      subject,
+      attendees,
+    });
 
-        const savedLecture = await newLecture.save();
-        console.log(savedLecture);
-        return NextResponse.json({success:true, message:"Saved lecture", data:savedLecture,})
-    } catch (error:any) {
-        return NextResponse.json({error: error.message})
-    }
+    const savedLecture = await newLecture.save();
+    console.log(savedLecture);
+
+    return NextResponse.json({
+      success: true,
+      message: "Saved lecture",
+      data: savedLecture,
+    });
+  } catch (error:any) {
+    console.error(error);
+    return NextResponse.json({ error: error.message });
+  }
 }

@@ -13,9 +13,7 @@ Once successfully scanned:
 "use client"
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { useEffect, useState } from "react";
-// import { AuthContextProvider, UserAuth } from "./context/AuthContext";
-import { UserAuth } from "./context/AuthContext"; // Use only UserAuth here, not AuthContextProvider
-
+import { UserAuth } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import axios from "axios";
 
@@ -23,88 +21,93 @@ export default function Home() {
   const [scanResult, setScanResult] = useState(null);
   const [attendance, setAttendance] = useState(false);
   const [correctUser, setCorrectUser] = useState(true);
-  const { user, loading } = UserAuth(); // Destructure the 'loading' state
-  
-  useEffect(()=>{
+  const { user, loading } = UserAuth();
 
+  useEffect(() => {
     const checkUser = async () => {
       try {
-        if (!loading && user) { // Check if user is available and loading is false
-          console.log(user);
+        if (!loading && user) {
           const userData = { email: user.email };
-          const checkUser = await axios.post("api/students/checkLogin", userData);
-          (checkUser.data.success) ? setCorrectUser(true) : setCorrectUser(false);
+          const checkUserResponse = await axios.post("api/students/checkLogin", userData);
+          setCorrectUser(checkUserResponse.data.success);
         }
       } catch (error) {
         console.log(error);
       }
-    }
+    };
 
     checkUser();
 
-    const scanner = new Html5QrcodeScanner('reader', {
-      qrbox:{
-        width: 250,
-        height: 250,
+    const initializeScanner = async () => {
+      const scanner = new Html5QrcodeScanner('reader', {
+        qrbox: {
+          width: 250,
+          height: 250,
+        },
+        fps: 3,
       },
-      fps: 3,
-    },
-    false //verbose
-    );
-  
-    async function onScanSuccess (decodedText:any, decodedResult:any) {
-      // handle the scanned code as you like, for example:
-      console.log(`Code matched = ${decodedText}`, decodedResult);
-      scanner.clear();
-      setScanResult(decodedText); // Update the state with the scan result
+      false //verbose
+      );
 
-      const dataInJson = JSON.parse(decodedText);
-      console.log("this data is being sent to validate: ", dataInJson);
-      const { lectureid, qrcodetext } = dataInJson;
-  
-      const sendData = {
-        studEmail: user.email,
-        lectureid: lectureid,
-        qrcodetext: qrcodetext,
-      };
-  
-      try {
-        console.log("Starting axios post request...");
-        const req = await axios.post("/api/students/attendance", sendData);
-        console.log(req.data);
+      const onScanSuccess = async (decodedText:any, decodedResult:any) => {
+        try {
+          console.log(`Code matched = ${decodedText}`, decodedResult);
+          scanner.clear();
+          setScanResult(decodedText);
 
-        if(req.data.success == false){
-          setAttendance(false);
-        } else {
-          setAttendance(true);
+          const dataInJson = JSON.parse(decodedText);
+          console.log("this data is being sent to validate: ", dataInJson);
+          const { lectureid, qrcodetext } = dataInJson;
+
+          const sendData = {
+            studEmail: user.email,
+            lectureid: lectureid,
+            qrcodetext: qrcodetext,
+          };
+
+          console.log("Starting axios post request...");
+          const req = await axios.post("/api/students/attendance", sendData);
+          console.log(req.data);
+
+          setAttendance(req.data.success);
+        } catch (error) {
+          console.log(error);
         }
-        
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    
-    function onScanFailure(error:any) {
-      // handle scan failure, usually better to ignore and keep scanning.
-      // for example:
-      console.warn(`Code scan error = ${error}`);
-    }
-  
-    scanner.render(onScanSuccess, onScanFailure);
+      };
 
+      const onScanFailure = (error:any) => {
+        console.warn(`Code scan error = ${error}`);
+      };
+
+      scanner.render(onScanSuccess, onScanFailure);
+    };
+
+    if (!loading && user) {
+      initializeScanner();
+    }
   }, [user, loading]);
 
   return (
     <main className="">
       <Navbar/>
-        {
-          (correctUser)
-          ? ((scanResult && attendance)
-            ? <div className="text-center p-5">Congratulations!! Your attendance has been marked!</div>
-            : <div id="reader"></div>)
-          : <div>Please login with a registered account.</div>
-        }
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          {correctUser ? (
+            scanResult && attendance ? (
+              <div className="text-center p-5">
+                Congratulations!! Your attendance has been marked!
+              </div>
+            ) : (
+              <div id="reader"></div>
+            )
+          ) : (
+            <div>Please login with a registered account.</div>
+          )}
+        </div>
+      )}
     </main>
-
-  )
+  );
 }
+
