@@ -47,12 +47,6 @@ const Navbar = () => {
   return (
     <div className="h-20 w-full border-b-2 flex items-center justify-between p-2">
       <ul className="flex">
-        {!user ? null : (
-          <li className="p-2 cursor-pointer">
-            <Link href="/profile">Profile</Link>
-          </li>
-        )}
-
         <li className="p-2 cursor-pointer">
           <Link href="/teacher/subjects">Teacher Login</Link>
         </li>

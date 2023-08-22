@@ -7,6 +7,7 @@ export default function NewStudent() {
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [courseInput, setCourseInput] = useState("");
+  const [requestStatus, setRequestStatus] = useState<null | "success">(null);
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
@@ -19,9 +20,15 @@ export default function NewStudent() {
 
     try {
         console.log("Trying to send api request for submitting student data to mongodb server...");
-      const request = await axios.post("/api/students/newstudent", data);
-      console.log(request.data);
-      
+      const response = await axios.post("/api/students/newstudent", data);
+      console.log(response.data);
+      if (response.data.success) {
+        setRequestStatus("success"); // Set the request status to success
+        // Clear input fields after successful registration
+        setCourseInput("");
+        setEmailInput("");
+        setNameInput("");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -30,6 +37,13 @@ export default function NewStudent() {
   return (
     <div className="p-5">
         <h1 className="py-3">Register new student</h1>
+
+        {requestStatus === "success" && (
+        <div className="bg-green-200 p-3 mb-3 rounded-lg">
+          Student registered successfully!
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-6 group">
