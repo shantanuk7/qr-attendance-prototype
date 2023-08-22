@@ -18,7 +18,7 @@ export default async function QR({ params }) {
 
   // Generate qr based on this password
   const randomstring = Math.random().toString(36).slice(-8);
-  const paramSubject = params.subject;
+  const paramSubject = decodeURIComponent(params.subject);
 
   // Add lecture in database
   const data = { subject: paramSubject, qrcode: randomstring };

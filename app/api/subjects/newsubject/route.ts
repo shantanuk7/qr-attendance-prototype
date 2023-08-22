@@ -12,7 +12,7 @@ export async function POST(request: NextRequest){
 
         const formattedCourse = decodeURIComponent(course);
         const formattedSubject = decodeURIComponent(subject);
-        
+
         console.log(formattedCourse + " " + formattedSubject);
         
         console.log("request: "+req);

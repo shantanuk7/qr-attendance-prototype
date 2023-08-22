@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 interface Lecture {
-  _id: string;
+  _id: number;
   date: string;
   subject: string;
 }
@@ -42,13 +42,13 @@ export default function LecturesLog({ params }: any) {
 
   return (
     <div className="text-center">
-      {data && data.length < 0 ? (
+      {data && data.length == 0 ? (
         <h2 className="text-center font-semibold p-3">
-          Attendance log for subject: {paramsubject}
+          No Attendance found for subject: {paramsubject}
         </h2>
       ) : (
         <h2 className="text-center font-semibold p-3">
-          No Attendance found for subject: {paramsubject}
+          Attendance log for subject: {paramsubject}
         </h2>
       )}
 

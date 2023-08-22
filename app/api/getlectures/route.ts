@@ -9,6 +9,7 @@ export async function POST(request: NextRequest){
     try {
         const req = await request.json();
         const subject = req.subject;
+        console.log(subject);
         
         const data = await Lecture.find({subject: subject});
 
