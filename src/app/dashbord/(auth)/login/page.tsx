@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 function Login() {
   const router = useRouter()
@@ -22,8 +22,9 @@ function Login() {
         if (response.data.user.isAdmin) { router.push("/admin"); }
         if (response.data.user.isTeacher) { router.push("/teacher"); }
         if (response.data.user.isStudent) { router.push("/student") }
-        
+        toast.success('Successfully Login!')
       } else {
+        toast.error("User Name or Password is Wrong!!!")
         console.error("Response data is missing or in unexpected format.");
       }
 
@@ -45,6 +46,10 @@ function Login() {
   return (
 
     <div>
+      <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
       <div className="bg-gray-100 min-h-screen flex justify-center items-center ">
         <div className="bg-white p-8 rounded-lg shadow-md max-w-md md:w-90% xl:w-full">
           <h2 className="text-2xl font-semibold mb-4">

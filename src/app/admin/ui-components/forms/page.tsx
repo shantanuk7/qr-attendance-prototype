@@ -7,10 +7,6 @@ import {
     Checkbox,
     FormGroup,
     FormControlLabel,
-    RadioGroup,
-    Radio,
-    FormLabel,
-    FormControl,
     Button,
 } from '@mui/material'
 import BaseCard from '@/app/admin/components/shared/BaseCard';
@@ -53,7 +49,7 @@ const Forms = () => {
         username: "",
       });
 
-      toast.success('Successfully toasted!')
+      toast.success('Successfully added!')
     } catch (error:any) {
       console.error("Failed!!!!! ", error.message);
 
@@ -108,18 +104,6 @@ const Forms = () => {
                 variant="outlined"
                 required
               />
-
-              <FormControl>
-                <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
-                  name="radio-buttons-group"
-                >
-                  <FormControlLabel value="female" control={<Radio />} label="Male" />
-                  <FormControlLabel value="male" control={<Radio />} label="Female" />
-                </RadioGroup>
-              </FormControl>
               <FormGroup>
                 <FormControlLabel
                   control={<Checkbox defaultChecked />}

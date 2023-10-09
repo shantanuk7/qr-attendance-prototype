@@ -1,5 +1,5 @@
 import {
-  IconBoxMultiple, IconCircleDot, IconHome, IconInfoCircle, IconLayout, IconLayoutGrid, IconPhoto, IconPoint, IconStar, IconTable, IconUser
+  IconBoxMultiple, IconCircleDot, IconHome, IconInfoCircle, IconLayout, IconLayoutGrid, IconPhoto, IconPoint, IconStar, IconTable, IconUser,IconUserPlus
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -15,45 +15,22 @@ const Menuitems = [
     id: uniqueId(),
     title: "Teacher Management",
     icon: IconUser,
-    href: "/admin/ui-components/buttons",
+    href: "/admin/ui-components/teacher-management",
     
   },
   {
     id: uniqueId(),
-    title: "Add Students",
+    title: "Add Teacher",
     icon: IconTable,
     href: "/admin/ui-components/forms",
   },
   {
     id: uniqueId(),
-    title: "Alerts",
-    icon: IconInfoCircle,
-    href: "/admin/ui-components/alerts",
+    title: "Add Students",
+    icon: IconUserPlus,
+    href: "/admin/ui-components/addstudents",
   },
-  // {
-  //   id: uniqueId(),
-  //   title: "Ratings",
-  //   icon: IconStar,
-  //   href: "/admin/ui-components/ratings",
-  // },
-  // {
-  //   id: uniqueId(),
-  //   title: "Images",
-  //   icon: IconPhoto,
-  //   href: "/admin/ui-components/images",
-  // },
-  {
-    id: uniqueId(),
-    title: "Calender",
-    icon: IconCircleDot,
-    href: "/admin/ui-components/pagination",
-  },
-  {
-    id: uniqueId(),
-    title: "Overview",
-    icon: IconLayoutGrid,
-    href: "/admin/ui-components/table",
-  },
+
 ];
 
 export default Menuitems;

@@ -20,7 +20,6 @@ import {
   IconChevronDown,
   IconCreditCard,
   IconCurrencyDollar,
-  IconMail,
   IconShield,
 } from "@tabler/icons-react";
 
@@ -84,7 +83,7 @@ useEffect(() => {
   const getUserDetails = async () => {
     try {
       const res = await axios.get('/api/users/me');
-      console.log(res.data)
+      
       setUsrName(res.data.data.username);
     } catch (error) {
       console.error('Error fetching user details:', error);
