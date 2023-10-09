@@ -1,6 +1,7 @@
 import {connect} from '@/dbConfig/dbconfig';
 import User from '@/model/userModel';
 import Teacher from '@/model/teacherModel';
+import Student from '@/model/studentModel';
 import {NextRequest,NextResponse} from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from "jsonwebtoken"
@@ -9,43 +10,15 @@ import jwt from "jsonwebtoken"
 connect()
 
 export async function POST(request: NextRequest) {
-    try {
-        const reqBody = await request.json();
-        const { email, password } = reqBody;
-
-        // Check if the user exists in the "users" collection
-        const user = await User.findOne({ email });
-
-        // Check if the user exists in the "teachers" collection
-        const teacher = await Teacher.findOne({ email });
-
-        if (!user && !teacher) {
-            return NextResponse.json({ error: "User Does Not Exist" }, { status: 400 });
-        }
-
-        // Check if Password is Correct for the user
-        let userRole = "";
-        let userDoc;
-
-        if (user) {
-            userRole = "user";
-            userDoc = user;
-        } else if (teacher) {
-            userRole = "teacher";
-            userDoc = teacher;
-        }
-
-        const isPasswordValid = await bcryptjs.compare(password, userDoc.password);
+    const checkLogin = async (userRole:any,user:any,password:any)=>{
+        const isPasswordValid = await bcryptjs.compare(password, user.password);
 
         if (!isPasswordValid) {
             return NextResponse.json({ error: "Invalid Password" }, { status: 400 });
         }
-
-        // Create Token Data
         const tokenData = {
-            id: userDoc._id,
-            username: userDoc.username,
-            email: userDoc.email,
+            id: user._id,
+            email: user.email,
         };
 
         // Create Token
@@ -55,15 +28,49 @@ export async function POST(request: NextRequest) {
             message: "Successfully Login",
             success: true,
             user: {
-                isAdmin: userRole === "user" ? userDoc.isAdmin : false,
-                isStudent: userRole === "user" ? userDoc.isStudent : false,
-                isTeacher: userRole === "teacher" ? userDoc.isTeacher : false,
+                isAdmin: userRole === "user" ? user.isAdmin : false,
+                isTeacher: userRole === "teacher" ? user.isTeacher : false,
+                isStudent: userRole === "student" ? user.isStudent : false,
             },
         });
 
         response.cookies.set("token", token, { httpOnly: true });
-
+        console.log("Till Here ok!!!!")
         return response;
+
+    }
+    try {
+       
+        const reqBody = await request.json();
+        const { email, password } = reqBody;
+
+        // Check if the user exists in the "users" collection
+        const user = await User.findOne({ email }).select('_id email password isAdmin');
+        if (user){
+            let userRole = "user";
+            return checkLogin(userRole,user,password)
+
+        }
+        // Check if the user exists in the "teachers" collection
+        const teacher = await Teacher.findOne({ email }).select('_id email password isTeacher');
+        if(teacher){
+            let userRole = "teacher";
+            return checkLogin(userRole,teacher,password)
+
+        }
+        //  Check if the user exists in the "Students collection
+        const student = await Student.findOne({ email }).select('_id email password isStudent');
+        if(student){
+            let userRole = "student";
+            return checkLogin(userRole,student,password)
+
+        }
+
+        if (!user && !teacher && !student) {
+            return NextResponse.json({ error: "User Does Not Exist" }, { status: 400 });
+        }
+
+        // Check if Password is Correct for the user
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }

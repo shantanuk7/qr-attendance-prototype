@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import BaseCard from "@/app/admin/components/shared/BaseCard";
 
-import { result } from "lodash";
 const Forms = () => {
   const [courseName, setCourseName] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true); // Initialize as true

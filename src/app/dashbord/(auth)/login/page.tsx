@@ -29,7 +29,7 @@ function Login() {
       }
 
     } catch (error: any) {
-      console.log("Login Failed!! :(", error.message);
+      toast.error("Somthing Went Wrong!!!")
     } finally {
       setLoading(false);
     }
