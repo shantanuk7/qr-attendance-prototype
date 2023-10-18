@@ -12,7 +12,7 @@ const QRReaderComponent = ()=>{
         height:250,
       },
       fps:5,
-    });
+    },true);
     scan.render(success,error)
     function success(result:any){
       scan.clear();
