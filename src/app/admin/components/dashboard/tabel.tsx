@@ -27,8 +27,9 @@ import { Toaster } from 'react-hot-toast';
 
 
 
-const teacherPerfomance = () => {
+const TeacherPerfomance = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+ 
   const [teacherToDelete, setTeacherToDelete] = useState({email: ""});
   const [teachers, setTeachers] = useState<Teacher[]>([]);
 
@@ -168,4 +169,4 @@ const teacherPerfomance = () => {
   );
 };
 
-export default teacherPerfomance;
+export default TeacherPerfomance;

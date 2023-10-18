@@ -9,110 +9,57 @@ const SalesOverview = () => {
   const primary = theme.palette.primary.main;
   const secondary = theme.palette.secondary.main;
 
-  const optionssalesoverview: any = {
-    grid: {
-      show: true,
-      borderColor: "transparent",
-      strokeDashArray: 2,
-      padding: {
-        left: 0,
-        right: 0,
-        bottom: 0,
+  const optionsOverview = {
+    series: [
+      {
+        name: "Desktops",
+        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
       },
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: "42%",
-        endingShape: "rounded",
-        borderRadius: 5,
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: 'line',
+        zoom: {
+          enabled: false,
+        },
       },
-    },
-
-    colors: [primary, secondary],
-    fill: {
-      type: "solid",
-      opacity: 1,
-    },
-    chart: {
-      offsetX: -15,
-      toolbar: {
-        show: false,
-      },
-      foreColor: "#adb0bb",
-      fontFamily: "inherit",
-      sparkline: {
+      dataLabels: {
         enabled: false,
       },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    markers: {
-      size: 0,
-    },
-    legend: {
-      show: false,
-    },
-    xaxis: {
-      type: "category",
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "July",
-        "Aug",
-        "Sept",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-      labels: {
-        style: {
-          cssClass: "grey--text lighten-2--text fill-color",
+      stroke: {
+        curve: 'straight',
+      },
+      title: {
+        text: 'Product Trends by Month',
+        align: 'left',
+      },
+      grid: {
+        row: {
+          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          opacity: 0.5,
         },
       },
-    },
-    yaxis: {
-      show: true,
-      min: 100,
-      max: 400,
-      tickAmount: 3,
-      labels: {
-        style: {
-          cssClass: "grey--text lighten-2--text fill-color",
-        },
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
       },
-    },
-    stroke: {
-      show: true,
-      width: 5,
-      lineCap: "butt",
-      colors: ["transparent"],
-    },
-    tooltip: {
-      theme: "dark",
     },
   };
-  const seriessalesoverview: any = [
+  
+  
+  const seriessalesoverview = [
     {
-      name: "Ample Admin",
-      data: [355, 390, 300, 350, 390, 180, 355, 390, 300, 350, 390, 180],
-    },
-    {
-      name: "Pixel Admin",
+      name: "Attendance",
       data: [280, 250, 325, 215, 250, 310, 280, 250, 325, 215, 250, 310],
     },
   ];
+  
   return (
     <BaseCard title="Analytics">
       <Chart
-        options={optionssalesoverview}
+        options={optionsOverview}
         series={seriessalesoverview}
-        type="bar"
+        type="line"
         height="295px"
       />
     </BaseCard>

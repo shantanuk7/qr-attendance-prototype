@@ -1,9 +1,25 @@
-import React from 'react'
+'use client'
+import { Grid, Box } from '@mui/material';
+import PageContainer from '@/app/student/components/container/PageContainer';
+// components
+import Analytics from '@/app/student/components/dashboard/Analytics';
 
-function Student() {
+
+
+const Dashboard = () => {
   return (
-    <div>Student</div>
+    <PageContainer title="Dashboard" description="this is Dashboard">
+    <Box mt={3}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} lg={12}>
+          <Analytics />
+        </Grid>
+       
+        
+      </Grid>
+    </Box>
+  </PageContainer>
   )
 }
 
-export default Student
+export default Dashboard;
