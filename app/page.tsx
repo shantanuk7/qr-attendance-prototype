@@ -103,7 +103,7 @@ export default function Home() {
               <div id="reader"></div>
             )
           ) : (
-            <div>Please login with a registered account.</div>
+            <div>Please login with a registered account</div>
           )}
         </div>
       )}
