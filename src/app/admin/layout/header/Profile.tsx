@@ -42,33 +42,8 @@ const Profile = () => {
   const success = theme.palette.success.main;
   const successlight = theme.palette.success.light;
 
-  /*profile data*/
-  const profiledata = [
-    {
-      href: "/",
-      title: "My Profile",
-      subtitle: "Account Settings",
-      icon: <IconCurrencyDollar width="20" height="20" />,
-      color: primary,
-      lightcolor: primarylight,
-    },
-    {
-      href: "/",
-      title: "My Inbox",
-      subtitle: "Messages & Emails",
-      icon: <IconShield width="20" height="20" />,
-      color: success,
-      lightcolor: successlight,
-    },
-    {
-      href: "/",
-      title: "My Tasks",
-      subtitle: "To-do and Daily Tasks",
-      icon: <IconCreditCard width="20" height="20" />,
-      color: error,
-      lightcolor: errorlight,
-    },
-  ];
+ 
+ 
   const logout = async () => {
     try {
         await axios.get('/api/users/logout')
@@ -169,16 +144,16 @@ useEffect(() => {
         <Box pt={0}>
 
           <List>
-            <ListItemButton component="a" href="#">
+            <ListItemButton component="a">
               <ListItemText primary="Edit Profile" />
             </ListItemButton>
-            <ListItemButton component="a" href="#">
+            <ListItemButton component="a">
               <ListItemText primary="Account" />
             </ListItemButton>
-            <ListItemButton component="a" href="#">
+            <ListItemButton component="a">
               <ListItemText primary="Change Password" />
             </ListItemButton>
-            <ListItemButton component="a" href="#">
+            <ListItemButton component="a">
               <ListItemText primary="My Settings" />
             </ListItemButton>
           </List>
