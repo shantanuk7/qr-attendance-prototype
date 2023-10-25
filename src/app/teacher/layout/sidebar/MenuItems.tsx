@@ -13,9 +13,9 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: "Crate QR Code",
+    title: "Create QR Code",
     icon: IconAnalyze,
-    href: "/teacher/ui-components/qrcrate",
+    href: "/teacher/ui-components/qrcreate",
   },
 
 ];
