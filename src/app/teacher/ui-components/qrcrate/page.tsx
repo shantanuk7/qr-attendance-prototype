@@ -1,6 +1,5 @@
 "use client";
-import TeacherSidebar from "@/app/teacher/components/TeacherSidebar";
-import SubjectListItem from "../components/SubjectListItem";
+import SubjectListItem from "../../components/SubjectListItem/SubjectListItem";
 import Link from "next/link";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -56,12 +55,7 @@ export default function Home() {
 
   return (
     <main className="">
-      <TeacherSidebar
-        isOpen={false}
-        onClose={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
+    
 
       <ul className="m-5">
         {data.length > 0 ? (

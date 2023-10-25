@@ -11,7 +11,7 @@ export default function EndLectureButton(props:any){
 
     const endLecture = ()=>{
         console.log("Lecture ended for "+ props.lectureid);
-        router.push("/teacher/home");
+        router.push("/teacher");
     }
 
     return (
