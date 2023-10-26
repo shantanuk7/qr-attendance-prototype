@@ -1,8 +1,8 @@
 'use client'
 import { Grid, Box } from '@mui/material';
-import PageContainer from '@/app/student/components/container/PageContainer';
+import PageContainer from '@/app/teacher/components/container/PageContainer';
 // components
-import Analytics from '@/app/student/components/dashboard/Analytics';
+import Analytics from '@/app/teacher/components/dashboard/Analytics';
 
 const Dashboard = () => {
   return (

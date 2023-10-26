@@ -3,7 +3,7 @@
 // NOTE: This does not actually change flag as of now, it is simply redirecting to home.
 
 "use client"
-
+import Button from '@mui/material/Button';
 import { useRouter } from "next/navigation"
 
 export default function EndLectureButton(props:any){
@@ -15,8 +15,16 @@ export default function EndLectureButton(props:any){
     }
 
     return (
-        <button onClick={endLecture} className="bg-teal-700 text-slate-50 p-2">
-            End Lecture          
-        </button>
+        <Button
+      onClick={endLecture}
+      variant="contained" // Use a contained button style
+      style={{
+        backgroundColor: '#028a74', // Teal color
+        color: '#fff', // Slate color
+        padding: '8px 16px', // Adjust padding as needed
+      }}
+    >
+      End Lecture
+    </Button>
     )
 }

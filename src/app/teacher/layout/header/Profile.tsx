@@ -21,6 +21,7 @@ import {
   IconCreditCard,
   IconCurrencyDollar,
   IconShield,
+  IconUser
 } from "@tabler/icons-react";
 
 const Profile = () => {
@@ -82,8 +83,8 @@ useEffect(() => {
  
   const getUserDetails = async () => {
     try {
-      const res = await axios.get('/api/users/me/student');
-      setUsrName(res.data.data.name);
+      const res = await axios.get('/api/users/me/teacher');
+      setUsrName(res.data.data.username);
     } catch (error) {
       console.error('Error fetching user details:', error);
     }
@@ -108,13 +109,13 @@ useEffect(() => {
         onClick={handleClick2}
       >
         <Avatar
-          src={"/images/users/user2.jpg"}
           alt={"ProfileImg"}
           sx={{
             width: 30,
             height: 30,
-          }}
-        />
+          }}>
+            <IconUser/>
+          </Avatar>
         <Box
           sx={{
             display: {

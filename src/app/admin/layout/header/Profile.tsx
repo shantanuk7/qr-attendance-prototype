@@ -18,9 +18,7 @@ import {
 
 import {
   IconChevronDown,
-  IconCreditCard,
-  IconCurrencyDollar,
-  IconShield,
+  IconUser
 } from "@tabler/icons-react";
 
 const Profile = () => {
@@ -84,13 +82,13 @@ useEffect(() => {
         onClick={handleClick2}
       >
         <Avatar
-          src={"/images/users/user2.jpg"}
           alt={"ProfileImg"}
           sx={{
             width: 30,
             height: 30,
-          }}
-        />
+          }}>
+            <IconUser/>
+          </Avatar>
         <Box
           sx={{
             display: {
