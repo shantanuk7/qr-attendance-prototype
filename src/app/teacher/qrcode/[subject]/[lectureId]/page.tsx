@@ -33,15 +33,15 @@ export default async function QRpage({params}:any){
 
     console.log(params);
     return(
-        <div>
+        <div className="flex flex-col text-center items-center">
             <h1>
-                Attendance for : {' ' + (paramSubject)}
+                Attendance for : <strong> {' ' + (paramSubject)} </strong> 
             </h1>
             <h2>
                 Lecture ID: {lectureId}
             </h2>
 
-            <img src={qrCodeDataURL} alt="QR Code" />
+            <img src={qrCodeDataURL} alt="QR Code" className='max-w-xs'/>
 
             <EndLectureButton lectureId={params.lectureId}/>
         </div>

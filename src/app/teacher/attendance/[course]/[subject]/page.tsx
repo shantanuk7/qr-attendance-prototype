@@ -24,7 +24,6 @@ export default function Attendance({ params }: any) {
       try {
 
         // const isoDate = date.toISOString();
-
         const sendData = {
           course: courseName,
           subject: subjectName,
