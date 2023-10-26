@@ -1,0 +1,6 @@
+.customCalendar {
+    width: 100%; /* Set the desired width */
+    max-width: 100%; /* Ensure the calendar does not exceed its container */
+    font-family: Arial, sans-serif; /* Apply your preferred font family */
+    /* Add any other styling as needed */
+  }

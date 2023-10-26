@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import axios from "axios";
 import { Tab } from "@mui/material";
+import styles from "./Calendar.module.css";
 
 export default function Attendance({ params }: any) {
   const [activeTab, setActiveTab] = useState("Daily");
@@ -13,9 +14,8 @@ export default function Attendance({ params }: any) {
     setActiveTab(tab);
   };
 
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
   const [date, setDate] = useState(new Date());
-
 
   useEffect(() => {
     //Need course name, subject and date for finding lecture of that subject and displaying details.
@@ -90,15 +90,15 @@ const DailyContent = (props:any) => {
 
   return (
       <div className="">
-      <div className="">
+      <div className="p-2">
         <Calendar
           onChange={handleDateChange}
           value={props.date}
-          className="min-w-full"
+          className={styles.customCalendar}
           locale="en-US"
           />
       </div>
-          {(props.date && props.data) &&
+          {(props.date) &&
       <div className="">
         <ContentBasedOnDate selectedDate={props.date} lectureData={props.data}/>
       </div>
@@ -110,27 +110,31 @@ const DailyContent = (props:any) => {
 const ContentBasedOnDate = ({ selectedDate, lectureData }: any) => {
   const formattedDate = selectedDate.toDateString();
   console.log("Lecture data: ", lectureData);
-  const rawDate = selectedDate.toString();
+
   return (
-    <div className="p-4 bg-white rounded-md shadow-md">
-      {(lectureData == null) ? 
-      <h2>No lecture data as on {formattedDate} </h2> : 
-      <table className="mx-auto my-auto border-collapse w-auto">
+    <div>
+      {(lectureData) 
+      ? 
+      (<table className="border-collapse mx-auto">
       <thead>
         <tr>
-          <th className="bg-gray-200 p-2 border">Student Email</th>
+          <th className="bg-gray-200 p-2 border">Email</th>
+          <th className="bg-gray-200 p-2 border">Name</th>
+          <th className="bg-gray-200 p-2 border">Roll No</th>
         </tr>
       </thead>
       <tbody>
-        {lectureData.attendees.map((studentEmail:string) => (
-          <tr key={studentEmail}>
-            <td className="border px-7 py-2">{studentEmail}</td>
+        {lectureData && (lectureData.map((student:any) => (
+          <tr key={student.rollNumber}>
+            <td className="border px-4 py-1">{student.email}</td>
+            <td className="border px-4 py-1">{student.name}</td>
+            <td className="border px-4 py-1">{student.rollNumber}</td>
           </tr>
-        ))}
+        )))}
       </tbody>
-    </table>
-      
-      
+    </table>)
+      : 
+      <h2>No lecture data as on {formattedDate} </h2> 
       }
     </div>
   );
