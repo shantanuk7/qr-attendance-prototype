@@ -2,12 +2,11 @@ import mongoose from "mongoose";
 
 const lectureSchema = new mongoose.Schema({
     date: Date,
-    alive: Boolean, //alive means lecture is going on and students can still mark attendance.
+    alive: Boolean,
     course: String,
     subject: String,
-    attendees: Array,
-});
-
+    attendees: { type: Array, default: [] } // Setting default as an empty array
+  });
 const Lecture = mongoose.models.lectures || mongoose.model("lectures", lectureSchema);
 
 export default Lecture;

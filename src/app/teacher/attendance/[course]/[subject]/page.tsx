@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import axios from "axios";
+import { Tab } from "@mui/material";
 
 export default function Attendance({ params }: any) {
   const [activeTab, setActiveTab] = useState("Daily");
@@ -12,8 +13,7 @@ export default function Attendance({ params }: any) {
     setActiveTab(tab);
   };
 
-  const [data, setData] = useState();
-//   const [selectedDate, setSelectedDate] = useState("");
+  const [data, setData] = useState(null);
   const [date, setDate] = useState(new Date());
 
 
@@ -72,7 +72,7 @@ export default function Attendance({ params }: any) {
         </div>
       </div>
       <div className="mt-2">
-        {activeTab === "Daily" && <DailyContent changeDate={(date:any)=>setDate(date)} date={date}/>}
+        {activeTab === "Daily" && <DailyContent changeDate={(date:any)=>setDate(date)} date={date} data={data}/>}
         {activeTab === "Cumulative" && <CumulativeContent />}
       </div>
     </div>
@@ -81,7 +81,9 @@ export default function Attendance({ params }: any) {
 
 const DailyContent = (props:any) => {
   //calendar
-    
+
+  console.log("in daily content: ", props.data);
+  
   const handleDateChange = (newDate: any) => {
     props.changeDate(newDate);
   };
@@ -93,27 +95,41 @@ const DailyContent = (props:any) => {
           onChange={handleDateChange}
           value={props.date}
           className="min-w-full"
+          locale="en-US"
           />
       </div>
-          {props.date &&
+          {(props.date && props.data) &&
       <div className="">
-        <ContentBasedOnDate selectedDate={props.date} data={props.data}/>
+        <ContentBasedOnDate selectedDate={props.date} lectureData={props.data}/>
       </div>
     }
     </div>
   );
 };
 
-const ContentBasedOnDate = ({ selectedDate }: any, props:any) => {
+const ContentBasedOnDate = ({ selectedDate, lectureData }: any) => {
   const formattedDate = selectedDate.toDateString();
+  console.log("Lecture data: ", lectureData);
   const rawDate = selectedDate.toString();
   return (
     <div className="p-4 bg-white rounded-md shadow-md">
-      <h2 className="text-xl font-bold">Attendance on: {formattedDate}</h2>
-      {(props.data) ? 
-      <h2>No lecture on this date.</h2> : <h1>
-        {props.data}
-      </h1>
+      {(lectureData == null) ? 
+      <h2>No lecture data as on {formattedDate} </h2> : 
+      <table className="mx-auto my-auto border-collapse w-auto">
+      <thead>
+        <tr>
+          <th className="bg-gray-200 p-2 border">Student Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {lectureData.attendees.map((studentEmail:string) => (
+          <tr key={studentEmail}>
+            <td className="border px-7 py-2">{studentEmail}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+      
       
       }
     </div>

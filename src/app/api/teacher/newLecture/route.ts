@@ -19,7 +19,6 @@ export async function POST(request: NextRequest){
 
         const date = new Date();
         const {subject, course} = req;
-        const attendees = [''];
         const alive = true;
 
         const newLecture = new Lecture ({
@@ -27,7 +26,6 @@ export async function POST(request: NextRequest){
             alive,
             course,
             subject,
-            attendees
         })
 
         const savedLecture = await newLecture.save();
