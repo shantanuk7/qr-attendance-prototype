@@ -4,8 +4,6 @@ import PageContainer from '@/app/student/components/container/PageContainer';
 // components
 import Analytics from '@/app/student/components/dashboard/Analytics';
 
-
-
 const Dashboard = () => {
   return (
     <PageContainer title="Dashboard" description="this is Dashboard">
@@ -13,9 +11,7 @@ const Dashboard = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
           <Analytics />
-        </Grid>
-       
-        
+        </Grid>       
       </Grid>
     </Box>
   </PageContainer>

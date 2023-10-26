@@ -53,15 +53,19 @@ export default function Home() {
     }
   };
 
+  const getAttendance = (course:string, subject:string) => {
+    router.push(`/teacher/attendance/${course}/${subject}`)
+  }
+
   return (
     <main className="">
-    
+
 
       <ul className="m-5">
         {data.length > 0 ? (
           data.map((item) => (
             <li key={item._id}>
-              <SubjectListItem course={item.course} subject={item.subject} newAttendance={newLecture}/>
+              <SubjectListItem course={item.course} subject={item.subject} newAttendance={newLecture} getAttendance={getAttendance}/>
             </li>
           ))
         ) : (

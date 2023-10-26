@@ -9,12 +9,15 @@ export default function SubjectListItem(props:any) {
                 <h2><strong>{props.subject}</strong></h2>
             </div>
             <div className="p-2 flex">
-                <IconDots size={32} color={"#374151"} className="ml-3"/>
+                <button onClick={() => {
+                    props.getAttendance(props.course, props.subject);
+                }}>
+                    <IconDots size={32} color={"#374151"} className="ml-3"/>
+                </button>
                 <button onClick={() => {
                     props.newAttendance(props.course, props.subject);
-                    
                 }}>
-                <IconQrcode size={28} color={"#374151"} className="ml-3"/>
+                    <IconQrcode size={28} color={"#374151"} className="ml-3"/>
                 </button>
             </div>
         </div>
